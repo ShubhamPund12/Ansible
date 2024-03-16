@@ -1,0 +1,15 @@
+- name: install nginx
+  yum:
+    name: "{{item}}"
+    state: present
+  loop:
+    - epel-release
+    - nginx
+- name: copy index file
+  copy:
+    src: index.html
+    dest: /usr/share/nginx/html/index.html
+- name: start nginx
+  service:
+    state: started
+    name: nginx

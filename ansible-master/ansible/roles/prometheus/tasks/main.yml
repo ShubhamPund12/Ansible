@@ -1,0 +1,22 @@
+- name: Install Prometheus
+  apt:
+    name: prometheus
+    state: present
+
+- name: Copy Prometheus configuration file
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+  notify: restart prometheus
+
+- name: Copy Prometheus alerting rules
+  copy:
+    src: alert.rules.yml
+    dest: /etc/prometheus/alert.rules
+  notify: reload prometheus
+
+- name: Start Prometheus service
+  service:
+    name: prometheus
+    state: started
+    enabled: true

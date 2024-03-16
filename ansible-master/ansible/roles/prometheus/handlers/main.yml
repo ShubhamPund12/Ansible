@@ -1,0 +1,10 @@
+- name: start prometheus
+      service:
+        name: prometheus
+        state: started
+
+    - name: reload prometheus
+      service:
+        name: prometheus
+        state: reloaded
+        

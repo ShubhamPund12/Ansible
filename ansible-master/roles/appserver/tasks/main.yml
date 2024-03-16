@@ -1,0 +1,49 @@
+- name: download java
+  package:
+    name: "{{item}}"
+    state: present
+  loop:
+    - epel-release
+    - java
+
+- name: download tomcat
+  unarchive:
+    src: "{{tomcat_url}}"
+    dest: /opt
+    remote_src: yes
+
+- name: copy context.xml
+  template:
+    src: context.xml
+    dest: "{{tomcat_dir}}/conf/context.xml"
+    force: yes
+
+- name: download war file
+  get_url:
+    url: https://s3-us-west-2.amazonaws.com/studentapi-cit/student.war
+    dest: "{{tomcat_dir}}/webapps"
+
+- name: download jdbc mysql driver
+  get_url:
+    url: https://s3-us-west-2.amazonaws.com/studentapi-cit/mysql-connector.jar
+    dest: "{{tomcat_dir}}/lib/"
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  seboolean:
+  name: httpd_can_network_connect
+  state: yes
+  persistent: yes
+
+- name: copy tomcat.sh
+  copy:
+    src: tomcat.sh
+    dest: /etc/init.d/tomcat
+    mode: 0755
+
+- name: start tomcat
+  shell: systemctl daemon-reload
+
+- name: start tomcat
+  service:
+    name: tomcat
+    state: restarted

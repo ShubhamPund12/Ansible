@@ -1,0 +1,2 @@
+httpd_conf: /etc/httpd/conf.d
+httpd_root_dir: /var/www/html

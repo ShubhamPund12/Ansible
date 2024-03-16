@@ -1,0 +1,87 @@
+- name: httpd package install
+  yum:
+    state: present
+    name: httpd
+- name: copy proxy file
+  copy:
+    src: proxy.conf
+    dest: "{{httpd_conf}}"/proxy.conf
+    force: yes
+  notify:
+    - httpd
+    
+- name: copy html content
+  copy:
+    src: index.html
+    dest: "{{httpd_root_dir}}/index.html"
+    
+- name: permissive selinux
+  selinux:
+    policy: targeted
+    state: permissive
+
+
+- name: start httpd service
+  services:
+    name: httpd
+    state: started
+=======
+- name: apache2 package install
+  apt:
+    state: present
+    name: httpd
+    update_cache: yes
+- name: copy proxy file
+  copy:
+    src: proxy.conf
+    dest: "{{httpd_conf}}"/proxy.conf
+    force: yes
+  notify:
+    - httpd
+    
+- name: copy html content
+  copy:
+    src: index.html
+    dest: "{{httpd_root_dir}}/index.html"
+    
+- name: permissive selinux
+  selinux:
+    policy: targeted
+    state: permissive
+
+
+- name: start httpd service
+  services:
+    name: httpd
+    state: started
+=======
+- name: apache2 package install
+  apt:
+    state: present
+    name: httpd
+    update_cache: yes
+- name: copy proxy file
+  copy:
+    src: proxy.conf
+    dest: "{{httpd_conf}}"/proxy.conf
+    force: yes
+  notify:
+    - httpd
+      
+      
+- name: copy html content
+  copy:
+    src: index.html
+    dest: "{{httpd_root_dir}}/index.html"
+    
+- name: permissive selinux
+  selinux:
+    policy: targeted
+    state: permissive
+
+
+- name: start httpd service
+  services:
+    name: httpd
+    state: started
+>>>>>>> 01a2df456850c9dda806042cf1b7bbde486848e3
