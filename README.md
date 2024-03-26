@@ -42,18 +42,27 @@ Consider pushing the code to a remote repository on platforms like GitHub or Git
 Prometheus variables:
 
 prometheus_version: The version of Prometheus to install.
+
 prometheus_config_dir: The directory where Prometheus configuration files will be stored.
+
 prometheus_data_dir: The directory where Prometheus will store its data.
+
 prometheus_web_listen_address: The address and port on which Prometheus will listen for web requests.
 
 Grafana variables:
 
 grafana_version: The version of Grafana to install.
+
 grafana_data_dir: The directory where Grafana will store its data.
+
 grafana_install_path: The path where Grafana will be installed.
+
 grafana_port: The port on which Grafana will listen for web requests.
+
 grafana_admin_user: The default username for the Grafana admin user.
+
 grafana_admin_password: The default password for the Grafana admin user.
+
 Node Exporter variables:
 
 node_exporter_version: The version of the Node Exporter to install (optional, if you want to monitor node metrics).
