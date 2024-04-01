@@ -1,6 +1,0 @@
-- name: Setup monitoring solution with Prometheus and Grafana
-  hosts: all
-  become: true
-  roles:
-    - prometheus
-    - grafana
