@@ -1,0 +1,79 @@
+# playbook.yml
+- hosts: all
+  become: true
+  vars_files:
+    - vars.yml
+  tasks:
+
+    - name: Install required packages
+      apt:
+        name:
+          - software-properties-common
+          - apt-transport-https
+        state: present
+        update_cache: yes
+
+    - name: Add Prometheus repository
+      apt_repository:
+        repo: "deb https://prometheus.raid.io/ prometheus-server main"
+        state: present
+
+    - name: Add Grafana repository
+      apt_repository:
+        repo: "deb https://packages.grafana.com/oss/deb stable main"
+        state: present
+
+    - name: Install Prometheus and Grafana
+      apt:
+        name:
+          - "prometheus={{ prometheus_version }}"
+          - "grafana={{ grafana_version }}"
+        state: present
+        update_cache: yes
+
+    - name: Configure Prometheus
+      template:
+        src: prometheus.yml.j2
+        dest: "{{ prometheus_config_dir }}/prometheus.yml"
+      notify: Restart Prometheus
+
+    - name: Configure Prometheus Alert Rules
+      template:
+        src: alert.rules.yml.j2
+        dest: "{{ prometheus_config_dir }}/alert.rules.yml"
+      notify: Restart Prometheus
+
+    - name: Configure Grafana
+      template:
+        src: grafana.ini.j2
+        dest: "{{ grafana_install_path }}/conf/grafana.ini"
+      notify: Restart Grafana
+
+    - name: Start Prometheus
+      systemd:
+        name: prometheus
+        state: started
+        enabled: yes
+
+    - name: Start Grafana
+      systemd:
+        name: grafana-server
+        state: started
+        enabled: yes
+
+    - name: Open Grafana port
+      ufw:
+        rule: allow
+        port: "{{ grafana_port }}"
+        proto: tcp
+
+  handlers:
+    - name: Restart Prometheus
+      systemd:
+        name: prometheus
+        state: restarted
+
+    - name: Restart Grafana
+      systemd:
+        name: grafana-server
+        state: restarted
