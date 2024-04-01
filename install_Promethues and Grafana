@@ -34,19 +34,19 @@
     - name: Configure Prometheus
       template:
         src: prometheus.yml.j2
-        dest: "{{ prometheus_config_dir }}/prometheus.yml"
+        dest: /etc/prometheus/prometheus.yml
       notify: Restart Prometheus
 
     - name: Configure Prometheus Alert Rules
       template:
         src: alert.rules.yml.j2
-        dest: "{{ prometheus_config_dir }}/alert.rules.yml"
+        dest: /etc/prometheus/alert.rules.yml
       notify: Restart Prometheus
 
     - name: Configure Grafana
       template:
         src: grafana.ini.j2
-        dest: "{{ grafana_install_path }}/conf/grafana.ini"
+        dest: /etc/grafana/grafana.ini
       notify: Restart Grafana
 
     - name: Start Prometheus
