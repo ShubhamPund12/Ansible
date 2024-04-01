@@ -28,7 +28,7 @@
 
 - name: Wait for Grafana to start
   uri:
-    url: http://localhost:3000 ##speecify hostname or ip for grafana server
+    url: http://13.232.22.201:3000 ##speecify hostname or ip for grafana server
     timeout: 5
   register: grafana_ready
   until: grafana_ready.status == 200
