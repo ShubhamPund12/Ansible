@@ -4,7 +4,7 @@
 prometheus_version: 2.37.6
 prometheus_config_dir: /etc/prometheus
 prometheus_data_dir: /var/lib/prometheus
-prometheus_web_listen_address: "0.0.0.0:9090"
+prometheus_web_listen_address: "13.232.22.201:9090"
 
 # Grafana variables
 grafana_version: 8.5.15
