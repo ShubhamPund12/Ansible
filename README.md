@@ -1,8 +1,10 @@
 # Ansible
-**Monitoring Solution with Prometheus and Grafana**
+Monitoring Solution with Prometheus and Grafana
+
 This project automates the deployment of Prometheus and Grafana for monitoring system and application metrics, along with custom alerting rules. The solution is implemented using Ansible.
 
-**Running the Ansible Playbook**
+Running the Ansible Playbook
+
 Ensure you have Ansible installed on your local machine.
 
 Update the inventory.ini file with the IP address or hostname of your monitoring server and Grafana server.
@@ -11,11 +13,11 @@ Run the following command to execute the Ansible playbook:
 
 bash
 Copy code
-**ansible-playbook -i inventory.ini prometheus_grafana_setup.yml**
-**Ansible Playbook Structure**
+ansible-playbook -i inventory.ini prometheus_grafana_setup.yml
+Ansible Playbook Structure
 prometheus_grafana_setup.yml: Main Ansible playbook that orchestrates the deployment of Prometheus and Grafana.
 Installs Prometheus and Grafana packages.
-**Configures Prometheus and Grafana services.**
+Configures Prometheus and Grafana services.
 Sets up Prometheus scraping targets and alerting rules.
 grafana.ini: Grafana configuration file specifying predefined data sources, authentication settings, and dashboard provisioning.
 dashboard.json: Custom Grafana dashboard JSON file containing visualizations for Prometheus metrics.
